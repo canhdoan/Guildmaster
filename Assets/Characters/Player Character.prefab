@@ -701,11 +701,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4730990633563750}
   - component: {fileID: 114757260615600756}
+  - component: {fileID: 114574118538795988}
+  - component: {fileID: 114497144987304698}
   - component: {fileID: 95331403884998802}
   - component: {fileID: 195837386474292662}
   - component: {fileID: 54862434432429220}
   m_Layer: 0
-  m_Name: Character
+  m_Name: Player Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3956,7 +3958,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310510563644100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.25, y: 0, z: -3.75}
+  m_LocalPosition: {x: 1.775, y: 0, z: 0.315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4557190029506226}
@@ -4690,6 +4692,29 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &114497144987304698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1310510563644100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e44654eb965f04ebdc7d74f2e90c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!114 &114574118538795988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1310510563644100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669dc96b471501a4b9cc20ea2263d495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114757260615600756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4701,7 +4726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19abb2ad6f027b045a62bd174fba8984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementTarget: {fileID: 0}
+  movementDestination: {fileID: 0}
 --- !u!137 &137029700244088678
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

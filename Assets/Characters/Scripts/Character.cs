@@ -10,12 +10,11 @@ namespace Guildmaster.Characters
     {
         #region Variables & Components
         [Header("Movement")]
-        public Transform movementTarget;
+        public Transform movementDestination;
         float currentMovementSpeed;
 
         // Components
         Animator animator;
-        new Rigidbody rigidbody;
         NavMeshAgent navMeshAgent;
         #endregion
 
@@ -23,11 +22,8 @@ namespace Guildmaster.Characters
         void Awake()
         {
             animator = GetComponent<Animator>();
-            rigidbody = GetComponent<Rigidbody>();
             navMeshAgent = GetComponent<NavMeshAgent>();
 
-            // TODO: delete?
-            //rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             navMeshAgent.updateRotation = false;
             navMeshAgent.updatePosition = true;
         }
@@ -35,16 +31,16 @@ namespace Guildmaster.Characters
         void Update()
         {
             // If the character has a movement target, tell the Nav Mesh Agent to move to it
-            if (movementTarget)
+            if (movementDestination)
             {
-                navMeshAgent.SetDestination(movementTarget.position);
+                navMeshAgent.SetDestination(movementDestination.position);
 
                 if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
                 { Move(navMeshAgent.desiredVelocity); }
             }
 
             // If the character is near its destination, or has no longer a movement target, make it stop
-            if (!movementTarget || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+            if (!movementDestination || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
                 Move(Vector3.zero);
                 navMeshAgent.velocity = Vector3.zero;
@@ -70,6 +66,18 @@ namespace Guildmaster.Characters
 
             // Update the animator parameters
             animator.SetFloat("Speed", currentMovementSpeed, 0.1f, Time.deltaTime);
+        }
+
+        // Function checking that the character can move to the designated target
+        public bool CheckPathValidity(Vector3 movementTarget)
+        {
+            NavMeshPath movementPath = new NavMeshPath();
+            NavMesh.CalculatePath(transform.position, movementTarget, NavMesh.AllAreas, movementPath);
+
+            if (movementPath.status == NavMeshPathStatus.PathComplete)
+            { return true; }
+            else
+            { return false; }
         }
         #endregion
     }

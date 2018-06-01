@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 20486636820580420}
   - component: {fileID: 124165366067545888}
   - component: {fileID: 81670712438052674}
+  - component: {fileID: 114542876668596762}
+  - component: {fileID: 114921246822663440}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -35,13 +37,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1049994477267102}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!20 &20486636820580420
 Camera:
   m_ObjectHideFlags: 1
@@ -85,6 +87,75 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1049994477267102}
   m_Enabled: 1
+--- !u!114 &114542876668596762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1049994477267102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6aa1946e1c65ad478ee808b176c3844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTab: 0
+  movementSettingsFoldout: 0
+  zoomingSettingsFoldout: 0
+  rotationSettingsFoldout: 0
+  heightSettingsFoldout: 0
+  mapLimitSettingsFoldout: 0
+  targetingSettingsFoldout: 0
+  inputSettingsFoldout: 0
+  useFixedUpdate: 0
+  keyboardMovementSpeed: 5
+  screenEdgeMovementSpeed: 3
+  followingSpeed: 20
+  rotationSped: 3
+  panningSpeed: 10
+  mouseRotationSpeed: 10
+  autoHeight: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxHeight: 10
+  minHeight: 15
+  heightDampening: 5
+  keyboardZoomingSensitivity: 2
+  scrollWheelZoomingSensitivity: 25
+  limitMap: 1
+  limitX: 50
+  limitY: 50
+  targetFollow: {fileID: 0}
+  targetOffset: {x: -10, y: 0, z: -10}
+  useScreenEdgeInput: 1
+  screenEdgeBorder: 25
+  useKeyboardInput: 1
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  usePanning: 1
+  panningKey: 325
+  useKeyboardZooming: 0
+  zoomInKey: 101
+  zoomOutKey: 113
+  useScrollwheelZooming: 0
+  zoomingAxis: Mouse ScrollWheel
+  useKeyboardRotation: 1
+  rotateRightKey: 120
+  rotateLeftKey: 122
+  useMouseRotation: 1
+  mouseRotationKey: 324
+--- !u!114 &114921246822663440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1049994477267102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ab868a18516244294928182c9025ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerPriorities: 090000000a00000008000000
 --- !u!124 &124165366067545888
 Behaviour:
   m_ObjectHideFlags: 1
