@@ -71,7 +71,7 @@ namespace Guildmaster.Core
             if (newLayer != topPriorityLayerLastFrame)
             {
                 topPriorityLayerLastFrame = newLayer;
-                notifyLayerChangeObservers(raycastHit, newLayer);
+                //notifyLayerChangeObservers(raycastHit, newLayer);
             }
         }
 

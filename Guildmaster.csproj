@@ -290,12 +290,15 @@
   <ItemGroup>
     <Compile Include="Assets\Characters\Scripts\Character.cs" />
     <Compile Include="Assets\Characters\Scripts\CombatCharacter.cs" />
+    <Compile Include="Assets\Characters\Scripts\HostileCharacter.cs" />
     <Compile Include="Assets\Characters\Scripts\PlayerCharacter.cs" />
     <Compile Include="Assets\Core\CameraManager.cs" />
     <Compile Include="Assets\Core\CameraRaycaster.cs" />
     <Compile Include="Assets\Core\GameController.cs" />
     <Compile Include="Assets\Core\GroupManager.cs" />
     <Compile Include="Assets\Core\StartupManager.cs" />
+    <Compile Include="Assets\Weapons\Weapon Types\WeaponType.cs" />
+    <Compile Include="Assets\Weapons\Weapon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

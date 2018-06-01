@@ -13,8 +13,6 @@ namespace Guildmaster.Core
 
         public void MapInitialization()
         {
-            print("Initialization");
-
             // Initialize Player Characters
             PlayerCharacter[] playerCharacters = FindObjectsOfType<PlayerCharacter>();
             foreach (PlayerCharacter playerCharacter in playerCharacters)
