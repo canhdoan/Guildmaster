@@ -7,5 +7,6 @@ namespace Guildmaster.Equipment
     {
         public WeaponType weaponType;
         public float attackSpeed = 2f;
+        public float damagePerSecond = 10f;
     }
 }

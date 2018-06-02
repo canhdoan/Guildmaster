@@ -81,12 +81,29 @@ namespace Guildmaster.Core
         {
             if (!gamePaused)
             {
-                // Identify the currently controlled character, and get its Player Character component
-                PlayerCharacter playerCharacter = groupManager.controlledCharacter.GetComponent<PlayerCharacter>();
-
                 if (layerHit == walkableLayerNumber)
                 {
-                    playerCharacter.MoveToDestination(raycastHit.point);
+                    // Get each currently controlled character
+                    foreach (GameObject characterObject in groupManager.controlledCharacters)
+                    {
+                        // Get the character's Player Character component
+                        PlayerCharacter playerCharacter = characterObject.GetComponent<PlayerCharacter>();
+
+                        // Make the characters move to the clicked destination
+                        playerCharacter.MoveToDestination(raycastHit.point);
+                    }
+                }
+                else if (layerHit == hostileCharacterLayerNumber)
+                {
+                    // Get each currently controlled character
+                    foreach (GameObject characterObject in groupManager.controlledCharacters)
+                    {
+                        // Get the character's Combat Character component
+                        CombatCharacter combatCharacter = characterObject.GetComponent<CombatCharacter>();
+
+                        // Make the characters target the clicked enemy
+                        combatCharacter.AssignTarget(raycastHit.collider.gameObject);
+                    }
                 }
             }
         }

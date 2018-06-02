@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Name: Sandbox Sword
   m_EditorClassIdentifier: 
   weaponType: {fileID: 11400000, guid: 93e314e77af66084298f471718119987, type: 2}
+  attackSpeed: 2.4
+  damagePerSecond: 10

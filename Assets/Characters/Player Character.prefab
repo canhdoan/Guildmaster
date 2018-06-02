@@ -706,6 +706,7 @@ GameObject:
   - component: {fileID: 95331403884998802}
   - component: {fileID: 195837386474292662}
   - component: {fileID: 54862434432429220}
+  - component: {fileID: 136042493201165154}
   m_Layer: 9
   m_Name: Player Character
   m_TagString: Untagged
@@ -4704,7 +4705,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  weapon: {fileID: 0}
+  distanceToTarget: Infinity
+  weapon: {fileID: 11400000, guid: 9f4b0e07830a4474db054f07e4aeca97, type: 2}
+  maxHealth: 100
+  currentHealth: 100
+  isDead: 0
+  isInCombat: 0
+  timeSinceLastAttack: 0
 --- !u!114 &114574118538795988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4728,6 +4735,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDestination: {fileID: 0}
+--- !u!136 &136042493201165154
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1310510563644100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2.035233
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.103642, z: 0}
 --- !u!137 &137029700244088678
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -5880,7 +5900,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1310510563644100}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 1000
   avoidancePriority: 50
@@ -5889,7 +5909,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.6
   m_BaseOffset: -0.083
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
