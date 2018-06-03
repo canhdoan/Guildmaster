@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc3eb2a4729da049a64a753e66f46e0, type: 3}
+  m_Name: Sandbox Sword & Shield
+  m_EditorClassIdentifier: 
+  weaponType: {fileID: 11400000, guid: 0b5154e86d9761e4ba09d3291d8b79ce, type: 2}
+  attackSpeed: 2.4
+  damagePerSecond: 10
+  rightHandPrefab: {fileID: 181534, guid: 34e0352352de13941a919fe55de539ce, type: 2}
+  rightHandCarryLocation: spine
+  rightHandCarryTransform: {fileID: 4330707660926878, guid: d344736bc6189a542adbc99b03c67fed,
+    type: 2}
+  rightHandWieldTransform: {fileID: 4330707660926878, guid: 5304c786ffa85e5478a4821a3a62968f,
+    type: 2}
+  leftHandPrefab: {fileID: 134266, guid: d6f0b375101cae34485f626d7b7873ee, type: 2}
+  leftHandCarryLocation: spine
+  leftHandCarryTransform: {fileID: 4330707660926878, guid: 49cb4d289db24424f958dd8342fa9864,
+    type: 2}
+  leftHandWieldTransform: {fileID: 4330707660926878, guid: f38a50eabafabc84f9e8145b8b76d959,
+    type: 2}

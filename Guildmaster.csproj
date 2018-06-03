@@ -291,6 +291,10 @@
     <Compile Include="Assets\Characters\Scripts\Character.cs" />
     <Compile Include="Assets\Characters\Scripts\CombatCharacter.cs" />
     <Compile Include="Assets\Characters\Scripts\HostileCharacter.cs" />
+    <Compile Include="Assets\Characters\Scripts\Identifiers\LeftHand.cs" />
+    <Compile Include="Assets\Characters\Scripts\Identifiers\RightHand.cs" />
+    <Compile Include="Assets\Characters\Scripts\Identifiers\Spine.cs" />
+    <Compile Include="Assets\Characters\Scripts\Identifiers\Waist.cs" />
     <Compile Include="Assets\Characters\Scripts\PlayerCharacter.cs" />
     <Compile Include="Assets\Core\CameraManager.cs" />
     <Compile Include="Assets\Core\CameraRaycaster.cs" />

@@ -10,12 +10,13 @@ GameObject:
   - component: {fileID: 491958}
   - component: {fileID: 3314732}
   - component: {fileID: 2347532}
-  m_Layer: 0
+  - component: {fileID: 65250741340186780}
+  m_Layer: 8
   m_Name: SM_Env_Tiles_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &491958
 Transform:
@@ -24,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.0793762, y: 0, z: 3.2832336}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,3 +83,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 184820}
   m_IsPrefabParent: 1
+--- !u!65 &65250741340186780
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184820}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0000114, y: 0.1, z: 4.999999}
+  m_Center: {x: -2.4999943, y: 0.05, z: 2.4999995}

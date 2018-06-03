@@ -11,6 +11,7 @@ namespace Guildmaster.Characters
 
         // Components
         Character character;
+        CombatCharacter combatCharacter;
         #endregion
 
         #region Common Methods
@@ -18,6 +19,7 @@ namespace Guildmaster.Characters
         {
             // Identify components
             character = GetComponent<Character>();
+            combatCharacter = GetComponent<CombatCharacter>();
         }
 
         public void Initialize()
@@ -36,6 +38,9 @@ namespace Guildmaster.Characters
 
                 // Make the Movement target the character's destination
                 character.movementDestination = movementTarget.transform;
+
+                // Delete the character's current combat target
+                combatCharacter.target = null;
             }
             else
             { print("can't move there"); }

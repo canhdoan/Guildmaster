@@ -15,6 +15,8 @@ namespace Guildmaster.Characters
 
         [Header("Equipment")]
         public Weapon weapon;
+        GameObject rightHandWeaponObject;
+        GameObject leftHandWeaponObject;
 
         [Header("Attributes")]
         public float maxHealth = 100f;
@@ -35,20 +37,31 @@ namespace Guildmaster.Characters
         #endregion
 
         #region Common Methods
-        void Start()
-        {
-            combatBehaviourRoutine = StartCoroutine("CombatBehaviour");
-        }
-
         void Awake()
         {
             animator = GetComponent<Animator>();
             character = GetComponent<Character>();
         }
 
+        void Start()
+        {
+            Initialize();
+
+            UnSheatheWeapons(false);
+        }
+
         void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
+        }
+
+        void Initialize()
+        {
+            combatBehaviourRoutine = StartCoroutine("CombatBehaviour");
+
+            // If the weapon has an Animator Override Controller, apply it
+            if (weapon.weaponType.animatorOverrideController != null)
+            { animator.runtimeAnimatorController = weapon.weaponType.animatorOverrideController; }
         }
         #endregion
 
@@ -71,7 +84,10 @@ namespace Guildmaster.Characters
                 if (isDead) // The character is dead
                 { shouldRunCombatBehaviour = false; }
                 else if (!target) // The character has no target
-                { shouldRunCombatBehaviour = false; }
+                {
+                    shouldRunCombatBehaviour = false;
+                    distanceToTarget = Mathf.Infinity;
+                }
 
                 // Running the combat behaviour
                 if (shouldRunCombatBehaviour)
@@ -126,7 +142,7 @@ namespace Guildmaster.Characters
         {
             // If the character has not brought its weapons out yet, do it
             if (!hasWeaponsOut)
-            { UnSheatheWeapons(); }
+            { UnSheatheWeapons(true); }
 
             // Make the character look at its target
             character.LookAt(target, 5f);
@@ -163,16 +179,74 @@ namespace Guildmaster.Characters
         #endregion
 
         #region Weapons
-        public void UnSheatheWeapons()
+        public void UnSheatheWeapons(bool unsheathe)
         {
-            hasWeaponsOut = true;
-            animator.SetBool("Weapons Out", true);
-        }
+            // Create variables
+            Transform rightHandParentTransform = null;
+            Transform rightHandTransform = null;
+            Transform leftHandParentTransform = null;
+            Transform leftHandTransform = null;
 
-        public void SheatheWeapons()
-        {
-            hasWeaponsOut = false;
-            animator.SetBool("Weapons Out", false);
+            // Destroy the current weapon objects
+            if (rightHandWeaponObject) { Destroy(rightHandWeaponObject); }
+            if (leftHandWeaponObject) { Destroy(leftHandWeaponObject); }
+
+            // Identify which part of the character should be used as a parent
+            if (unsheathe)
+            {
+                rightHandParentTransform = GetComponentsInChildren<RightHand>()[0].gameObject.transform;
+                rightHandTransform = weapon.rightHandWieldTransform;
+                leftHandParentTransform = GetComponentsInChildren<LeftHand>()[0].gameObject.transform;
+                leftHandTransform = weapon.leftHandWieldTransform;
+            }
+            else
+            {
+                if (weapon.rightHandCarryLocation == "spine")
+                { rightHandParentTransform = GetComponentsInChildren<Spine>()[0].gameObject.transform; }
+                else if (weapon.rightHandCarryLocation == "waist")
+                { rightHandParentTransform = GetComponentsInChildren<Waist>()[0].gameObject.transform; }
+                rightHandTransform = weapon.rightHandCarryTransform;
+
+                if (weapon.leftHandCarryLocation == "spine")
+                { leftHandParentTransform = GetComponentsInChildren<Spine>()[0].gameObject.transform; }
+                else if (weapon.leftHandCarryLocation == "waist")
+                { leftHandParentTransform = GetComponentsInChildren<Waist>()[0].gameObject.transform; }
+                leftHandTransform = weapon.leftHandCarryTransform;
+            }
+
+            if (weapon.rightHandPrefab != null)
+            {
+                // Create the weapon
+                rightHandWeaponObject = Instantiate(weapon.rightHandPrefab, rightHandParentTransform);
+
+                // Apply the Transforms
+                rightHandWeaponObject.transform.localPosition = rightHandTransform.localPosition;
+                rightHandWeaponObject.transform.localRotation = rightHandTransform.localRotation;
+                rightHandWeaponObject.transform.localScale = rightHandTransform.localScale;
+            }
+
+            if (weapon.leftHandPrefab != null)
+            {
+                // Create the weapon
+                leftHandWeaponObject = Instantiate(weapon.leftHandPrefab, leftHandParentTransform);
+
+                // Apply the Transforms
+                leftHandWeaponObject.transform.localPosition = leftHandTransform.localPosition;
+                leftHandWeaponObject.transform.localRotation = leftHandTransform.localRotation;
+                leftHandWeaponObject.transform.localScale = leftHandTransform.localScale;
+            }
+
+            // Set the variables and animator parameters
+            if (unsheathe)
+            {
+                hasWeaponsOut = true;
+                animator.SetBool("Weapons Out", true);
+            }
+            else
+            {
+                hasWeaponsOut = false;
+                animator.SetBool("Weapons Out", false);
+            }
         }
         #endregion
     }

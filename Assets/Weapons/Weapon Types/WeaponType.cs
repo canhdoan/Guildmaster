@@ -6,5 +6,6 @@ namespace Guildmaster.Equipment
     public class WeaponType : ScriptableObject
     {
         public float range;
+        public AnimatorOverrideController animatorOverrideController;
     }
 }
