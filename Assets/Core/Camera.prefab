@@ -107,7 +107,7 @@ MonoBehaviour:
   targetingSettingsFoldout: 0
   inputSettingsFoldout: 0
   useFixedUpdate: 0
-  keyboardMovementSpeed: 5
+  keyboardMovementSpeed: 20
   screenEdgeMovementSpeed: 3
   followingSpeed: 20
   rotationSped: 3
@@ -127,22 +127,22 @@ MonoBehaviour:
   limitY: 50
   targetFollow: {fileID: 0}
   targetOffset: {x: -10, y: 0, z: -10}
-  useScreenEdgeInput: 1
+  useScreenEdgeInput: 0
   screenEdgeBorder: 25
   useKeyboardInput: 1
   horizontalAxis: Horizontal
   verticalAxis: Vertical
-  usePanning: 1
+  usePanning: 0
   panningKey: 325
   useKeyboardZooming: 0
   zoomInKey: 101
   zoomOutKey: 113
   useScrollwheelZooming: 0
   zoomingAxis: Mouse ScrollWheel
-  useKeyboardRotation: 1
+  useKeyboardRotation: 0
   rotateRightKey: 120
   rotateLeftKey: 122
-  useMouseRotation: 1
+  useMouseRotation: 0
   mouseRotationKey: 324
 --- !u!114 &114921246822663440
 MonoBehaviour:

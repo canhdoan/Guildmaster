@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 4685466701779178}
   - component: {fileID: 137318709091147082}
   m_Layer: 10
-  m_Name: Character_Mystic_01
+  m_Name: PrimaryMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1660,7 +1660,7 @@ GameObject:
   - component: {fileID: 136522713293908594}
   m_Layer: 10
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: EnemyFaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2267,12 +2267,12 @@ GameObject:
   - component: {fileID: 4942842592185484}
   - component: {fileID: 137052661515817262}
   m_Layer: 10
-  m_Name: Character_Ancient_Warrior_01
+  m_Name: SecondaryMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1954306789964768
 GameObject:
   m_ObjectHideFlags: 1
@@ -3839,7 +3839,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1741392183250612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.889, y: 0, z: 0.983}
+  m_LocalPosition: {x: -8.63, y: 0, z: 8.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4685466701779178}
@@ -4710,13 +4710,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   distanceToTarget: Infinity
-  weapon: {fileID: 11400000, guid: 9f4b0e07830a4474db054f07e4aeca97, type: 2}
+  weapon: {fileID: 11400000, guid: 38a4dee202786a04b84c05e75d0f0c3e, type: 2}
   maxHealth: 100
   currentHealth: 100
   isDead: 0
   isInCombat: 0
   hasWeaponsOut: 0
   timeSinceLastAttack: 0
+  isPlayerCharacter: 0
+  isHostileCharacter: 0
 --- !u!114 &114324279425101396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4774,6 +4776,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f405263b529281048a5744f676260baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy: {fileID: 11400000, guid: 0babed274272e784bbd336dddcc58832, type: 2}
+  isAlerted: 0
+  target1: {fileID: 0}
+  target1Threat: 0
+  target2: {fileID: 0}
+  target2Threat: 0
+  target3: {fileID: 0}
+  target3Threat: 0
+  target4: {fileID: 0}
+  target4Threat: 0
 --- !u!114 &114998868226639594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4795,9 +4807,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.035233
+  m_Height: 1.85
   m_Direction: 1
-  m_Center: {x: 0, y: 1.103642, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!137 &137034212914035556
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -4929,7 +4941,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300006, guid: be73df03abf02284486d1afabcf5d4fe, type: 3}
+  m_Mesh: {fileID: 0}
   m_Bones:
   - {fileID: 4914408251326160}
   - {fileID: 4372433554602502}
@@ -5024,7 +5036,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300066, guid: b69174d668ba02d44b14a084b217670a, type: 3}
+  m_Mesh: {fileID: 4300046, guid: e2958561779b1a748a4246b9d0c0b309, type: 3}
   m_Bones:
   - {fileID: 4914408251326160}
   - {fileID: 4372433554602502}
@@ -5078,7 +5090,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 4914408251326160}
   m_AABB:
-    m_Center: {x: -0.00000011920929, y: 0.8601967, z: 0.009509891}
+    m_Center: {x: -0.00000011920929, y: 1, z: 0.009509891}
     m_Extent: {x: 1.025416, y: 0.9915936, z: 0.274366}
   m_DirtyAABB: 0
 --- !u!137 &137399659021884304

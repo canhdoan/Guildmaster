@@ -41,12 +41,13 @@ namespace Guildmaster.Characters
                 { Move(navMeshAgent.desiredVelocity); }
             }
 
-            // If the character is near its destination, or has no longer a movement target, make it stop
+            // If the character is near its destination, or has no longer a movement target, make it stop and erase the movement destination
             if (!movementDestination || navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
                 Move(Vector3.zero);
                 navMeshAgent.velocity = Vector3.zero;
                 isMoving = false;
+                movementDestination = null;
             }
         }
         #endregion
@@ -79,6 +80,45 @@ namespace Guildmaster.Characters
 
             if (movementPath.status == NavMeshPathStatus.PathComplete)
             { return true; }
+            else
+            { return false; }
+        }
+
+        public void FootL()
+        { }
+
+        public void FootR()
+        { }
+        #endregion
+
+        #region Line of Sight
+        // Function checking that the target is potentially visible by the character (360° field of view)
+        public bool IsVisible(GameObject target)
+        {
+            // Calculating Character and Target's positions
+            Vector3 characterPosition = transform.position;
+            Vector3 targetPosition = target.transform.position;
+
+            // Adjusting characters positions (to check line of sight from the head, to the torso)
+            characterPosition.y += 1.5f;
+            targetPosition.y += 0.8f;
+
+            // Check that the target is visible
+            RaycastHit hit;
+
+            if (Physics.Linecast(characterPosition, targetPosition, out hit))
+            {
+                if (hit.collider == target.GetComponent<Collider>())
+                {
+                    Debug.DrawLine(characterPosition, targetPosition, Color.green);
+                    return true;
+                }
+                else
+                {
+                    Debug.DrawLine(characterPosition, targetPosition, Color.red);
+                    return false;
+                }
+            }
             else
             { return false; }
         }

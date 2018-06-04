@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b94f97c4f763f48894d4038a0b55ba, type: 3}
+  m_Name: Goblin Spiked Mace
+  m_EditorClassIdentifier: 
+  skinId: GoblinSpikedMace
+  rightHandPrefab: {fileID: 130572, guid: 8dba008199482ff48b1e56f3e176b1d7, type: 2}
+  rightHandCarryLocation: spine
+  rightHandCarryTransform: {fileID: 4330707660926878, guid: 4d5e871819f0fc343b9475d0fbdda834,
+    type: 2}
+  rightHandWieldTransform: {fileID: 4330707660926878, guid: 9251a1e29cf91e24d8dbba4910852b59,
+    type: 2}
+  leftHandPrefab: {fileID: 0}
+  leftHandCarryLocation: spine
+  leftHandCarryTransform: {fileID: 4330707660926878, guid: 4d5e871819f0fc343b9475d0fbdda834,
+    type: 2}
+  leftHandWieldTransform: {fileID: 4330707660926878, guid: 9251a1e29cf91e24d8dbba4910852b59,
+    type: 2}

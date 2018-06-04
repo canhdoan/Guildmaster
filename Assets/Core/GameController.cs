@@ -12,6 +12,7 @@ namespace Guildmaster.Core
 
         [Header("Game State")]
         public bool gamePaused = false;
+        public bool isCtrlDown = false;
 
         // Layers
         const int walkableLayerNumber = 8;
@@ -19,6 +20,7 @@ namespace Guildmaster.Core
         const int hostileCharacterLayerNumber = 10;
 
         // Managers
+        CameraManager cameraManager;
         GroupManager groupManager;
         StartupManager startupManager;
 
@@ -30,6 +32,7 @@ namespace Guildmaster.Core
         void Awake()
         {
             // Identify the managers
+            cameraManager = Camera.main.GetComponent<CameraManager>();
             groupManager = GetComponent<GroupManager>();
             startupManager = GetComponent<StartupManager>();
 
@@ -44,17 +47,26 @@ namespace Guildmaster.Core
             #region Keyboard Inputs
             if (!gamePaused)
             {
-                // Space: Tactical Pause
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    if (!tacticalPauseActive)
-                    { StartTacticalPause(); }
-                    else
-                    { StopTacticalPause(); }
-                }
                 // Escape: Pause & Main Menu
-                else if (Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.Escape))
                 { ShowMainMenu(); }
+                else
+                {
+                    // Space: Tactical Pause
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (!tacticalPauseActive)
+                        { StartTacticalPause(); }
+                        else
+                        { StopTacticalPause(); }
+                    }
+
+                    // Ctrl: Multiple selection
+                    if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                    { isCtrlDown = true; }
+                    else
+                    { isCtrlDown = false; }
+                }
             }
             else
             {
@@ -73,7 +85,34 @@ namespace Guildmaster.Core
         // Left click
         void OnMouseLeftClick(RaycastHit raycastHit, int layerHit)
         {
-            print("left click");
+            if (!gamePaused)
+            {
+                if (layerHit == playerCharacterLayerNumber)
+                {
+                    // Check if the character is already part of the controlled characters list
+                    if (groupManager.controlledCharacters.Contains(raycastHit.collider.gameObject))
+                    {
+                        // If the list contains only one controlled character (the clicked one), focus the camera on it
+                        if (groupManager.controlledCharacters.Count == 1)
+                        {
+                            cameraManager.targetFollow = raycastHit.collider.gameObject.transform;
+                        }
+                        // If the list contains multiple characters, empty it to control only the clicked one
+                        else
+                        { groupManager.ControlCharacter(raycastHit.collider.gameObject, true); }
+                    }
+                    // The character is not already controlled: control it
+                    else
+                    {
+                        // If Ctrl is pushed, add the clicked character to the controlled list
+                        if (isCtrlDown)
+                        { groupManager.ControlCharacter(raycastHit.collider.gameObject, false); }
+                        // If Ctrl is not pushed, empty the controlled character list, and put the clicked character into it
+                        else
+                        { groupManager.ControlCharacter(raycastHit.collider.gameObject, true); }
+                    }
+                }
+            }
         }
 
         // Right click

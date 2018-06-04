@@ -190,9 +190,17 @@ namespace Guildmaster.Core
         private void CameraUpdate()
         {
             if (FollowingTarget)
-                FollowTarget();
+            {
+                if (KeyboardInput.x != 0 || KeyboardInput.y != 0)
+                {
+                    targetFollow = null;
+                    Move();
+                }
+                else
+                { FollowTarget(); }
+            }
             else
-                Move();
+            { Move(); }
 
             // TODO: delete?
             //HeightCalculation();

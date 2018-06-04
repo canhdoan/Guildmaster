@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Guildmaster.Equipment;
+using UnityEngine.AI;
 
 namespace Guildmaster.Characters
 {
@@ -28,12 +29,18 @@ namespace Guildmaster.Characters
         public bool hasWeaponsOut = false;
         public float timeSinceLastAttack = 0f;
 
-        // Coroutines
-        Coroutine combatBehaviourRoutine;
+        // Combat attributes
+        public float effectiveAttackRange = 3f;
+
+        // Various
+        public bool isPlayerCharacter = false;
+        public bool isHostileCharacter = false;
 
         // Components
         Animator animator;
         Character character;
+        HostileCharacter hostileCharacter;
+        NavMeshAgent navMeshAgent;
         #endregion
 
         #region Common Methods
@@ -41,13 +48,21 @@ namespace Guildmaster.Characters
         {
             animator = GetComponent<Animator>();
             character = GetComponent<Character>();
+            hostileCharacter = GetComponent<HostileCharacter>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
         void Start()
         {
+            // Determine the type of character
+            if (GetComponent<PlayerCharacter>() != null)
+            { isPlayerCharacter = true; }
+            else if (GetComponent<HostileCharacter>() != null)
+            { isHostileCharacter = true; }
+
             Initialize();
 
-            UnSheatheWeapons(false);
+            UnSheatheWeapons(true);
         }
 
         void Update()
@@ -57,11 +72,13 @@ namespace Guildmaster.Characters
 
         void Initialize()
         {
-            combatBehaviourRoutine = StartCoroutine("CombatBehaviour");
+            StartCoroutine("CombatBehaviour");
 
             // If the weapon has an Animator Override Controller, apply it
-            if (weapon.weaponType.animatorOverrideController != null)
-            { animator.runtimeAnimatorController = weapon.weaponType.animatorOverrideController; }
+            if (isPlayerCharacter && weapon.animator != null)
+            { animator.runtimeAnimatorController = weapon.animator; }
+            else if (isHostileCharacter && hostileCharacter.enemy.animator != null)
+            { animator.runtimeAnimatorController = hostileCharacter.enemy.animator; }
         }
         #endregion
 
@@ -104,7 +121,7 @@ namespace Guildmaster.Characters
                         distanceToTarget = Vector3.Distance(target.transform.position, transform.position);
 
                         // If the character is close enough to its target, see if it should attack it
-                        if (distanceToTarget <= weapon.weaponType.range)
+                        if (distanceToTarget <= effectiveAttackRange)
                         {
                             // If the Character's movement target was defined as the current target, wipe it (the character doesn't need to move towards it anymore)
                             if (character.movementDestination == target.transform)
@@ -121,6 +138,11 @@ namespace Guildmaster.Characters
 
                         if (shouldPursue)
                         {
+                            // Determine the stopping distance (characters stop nearer from their target than necessary, to make sure they don't block other enemies from attacking)
+                            float stoppingDistance = effectiveAttackRange - 1f;
+
+                            // Make the character move to its target
+                            navMeshAgent.stoppingDistance = stoppingDistance;
                             character.movementDestination = target.transform;
                         }
                     }
@@ -147,7 +169,6 @@ namespace Guildmaster.Characters
             // Make the character look at its target
             character.LookAt(target, 5f);
 
-            print(gameObject + " attacks " + target);
             timeSinceLastAttack = 0;
             animator.SetTrigger("Attack 1");
         }
@@ -156,23 +177,43 @@ namespace Guildmaster.Characters
         public void Hit()
         {
             // Damage the target
-            target.GetComponent<CombatCharacter>().ReceiveDamage(CalculateDPS());
+            target.GetComponent<CombatCharacter>().ReceiveDamage(gameObject, CalculateDPS());
         }
 
-        // Functionc alculating the character's DPS
+        // Function calculating the character's effective DPS (without random effects such as critical)
         public float CalculateDPS()
         {
-            // Calculate the basic damage done by the weapon's hit
-            float weaponDamage = weapon.damagePerSecond * weapon.attackSpeed;
+            float dps = 0;
 
-            return weaponDamage;
+            if (isPlayerCharacter)
+            {
+                // Calculate the basic damage done by the weapon's hit
+                float weaponDamage = (weapon.damagePerSecond * weapon.attackSpeed) / weapon.attacksPerCycle;
+
+                dps = weaponDamage;
+            }
+            else if (isHostileCharacter)
+            {
+                // DPS is determined by the enemy archetype
+                dps = hostileCharacter.enemy.dps * hostileCharacter.enemy.attackSpeed;
+            }
+                
+            return dps;
         }
         #endregion
 
         #region Damage
-        public float ReceiveDamage(float amount)
+        public float ReceiveDamage(GameObject damageDealer, float amount)
         {
             currentHealth -= amount;
+
+            // If the character has no target yet, automatically target the source of the damage
+            if (!target)
+            { target = damageDealer; }
+
+            // If the character is an enemy, alter the threat table
+            if (isHostileCharacter)
+            { hostileCharacter.IncreaseThreat(damageDealer, amount); }
 
             return 1f;
         }
@@ -191,33 +232,40 @@ namespace Guildmaster.Characters
             if (rightHandWeaponObject) { Destroy(rightHandWeaponObject); }
             if (leftHandWeaponObject) { Destroy(leftHandWeaponObject); }
 
+            // Get the weapon skin informations
+            WeaponSkin weaponSkin = null;
+            if (isPlayerCharacter)
+            { weaponSkin = weapon.defaultSkin; }
+            else if (isHostileCharacter)
+            { weaponSkin = hostileCharacter.enemy.weaponSkin; }
+
             // Identify which part of the character should be used as a parent
             if (unsheathe)
             {
                 rightHandParentTransform = GetComponentsInChildren<RightHand>()[0].gameObject.transform;
-                rightHandTransform = weapon.rightHandWieldTransform;
+                rightHandTransform = weaponSkin.rightHandWieldTransform;
                 leftHandParentTransform = GetComponentsInChildren<LeftHand>()[0].gameObject.transform;
-                leftHandTransform = weapon.leftHandWieldTransform;
+                leftHandTransform = weaponSkin.leftHandWieldTransform;
             }
             else
             {
-                if (weapon.rightHandCarryLocation == "spine")
+                if (weaponSkin.rightHandCarryLocation == "spine")
                 { rightHandParentTransform = GetComponentsInChildren<Spine>()[0].gameObject.transform; }
-                else if (weapon.rightHandCarryLocation == "waist")
+                else if (weaponSkin.rightHandCarryLocation == "waist")
                 { rightHandParentTransform = GetComponentsInChildren<Waist>()[0].gameObject.transform; }
-                rightHandTransform = weapon.rightHandCarryTransform;
+                rightHandTransform = weaponSkin.rightHandCarryTransform;
 
-                if (weapon.leftHandCarryLocation == "spine")
+                if (weaponSkin.leftHandCarryLocation == "spine")
                 { leftHandParentTransform = GetComponentsInChildren<Spine>()[0].gameObject.transform; }
-                else if (weapon.leftHandCarryLocation == "waist")
+                else if (weaponSkin.leftHandCarryLocation == "waist")
                 { leftHandParentTransform = GetComponentsInChildren<Waist>()[0].gameObject.transform; }
-                leftHandTransform = weapon.leftHandCarryTransform;
+                leftHandTransform = weaponSkin.leftHandCarryTransform;
             }
 
-            if (weapon.rightHandPrefab != null)
+            if (weaponSkin.rightHandPrefab != null)
             {
                 // Create the weapon
-                rightHandWeaponObject = Instantiate(weapon.rightHandPrefab, rightHandParentTransform);
+                rightHandWeaponObject = Instantiate(weaponSkin.rightHandPrefab, rightHandParentTransform);
 
                 // Apply the Transforms
                 rightHandWeaponObject.transform.localPosition = rightHandTransform.localPosition;
@@ -225,10 +273,10 @@ namespace Guildmaster.Characters
                 rightHandWeaponObject.transform.localScale = rightHandTransform.localScale;
             }
 
-            if (weapon.leftHandPrefab != null)
+            if (weaponSkin.leftHandPrefab != null)
             {
                 // Create the weapon
-                leftHandWeaponObject = Instantiate(weapon.leftHandPrefab, leftHandParentTransform);
+                leftHandWeaponObject = Instantiate(weaponSkin.leftHandPrefab, leftHandParentTransform);
 
                 // Apply the Transforms
                 leftHandWeaponObject.transform.localPosition = leftHandTransform.localPosition;

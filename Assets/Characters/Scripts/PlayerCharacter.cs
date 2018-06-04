@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Guildmaster.Characters
 {
@@ -25,6 +23,9 @@ namespace Guildmaster.Characters
         public void Initialize()
         {
             movementTarget = new GameObject("Movement Target");
+
+            // CombatCharacter.cs
+            combatCharacter.effectiveAttackRange = combatCharacter.weapon.range;
         }
         #endregion
 

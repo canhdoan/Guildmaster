@@ -710,7 +710,7 @@ GameObject:
   - component: {fileID: 136042493201165154}
   m_Layer: 9
   m_Name: Player Character
-  m_TagString: Untagged
+  m_TagString: PlayerFaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3963,7 +3963,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310510563644100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.775, y: 0, z: 0.315}
+  m_LocalPosition: {x: 1.74, y: 0, z: 0.315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4557190029506226}
@@ -4739,6 +4739,8 @@ MonoBehaviour:
   isInCombat: 0
   hasWeaponsOut: 0
   timeSinceLastAttack: 0
+  isPlayerCharacter: 0
+  isHostileCharacter: 0
 --- !u!114 &114574118538795988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4795,9 +4797,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.035233
+  m_Height: 1.85
   m_Direction: 1
-  m_Center: {x: 0, y: 1.103642, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!137 &137029700244088678
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

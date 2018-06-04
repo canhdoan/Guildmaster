@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b94f97c4f763f48894d4038a0b55ba, type: 3}
+  m_Name: Sandbox Dual Pistols
+  m_EditorClassIdentifier: 
+  skinId: SandboxDualPistols
+  rightHandPrefab: {fileID: 168002, guid: b803ea689b41948458934ad06785a313, type: 2}
+  rightHandCarryLocation: waist
+  rightHandCarryTransform: {fileID: 4330707660926878, guid: 9d36839f2f695d54086773bb31aa5ca1,
+    type: 2}
+  rightHandWieldTransform: {fileID: 4330707660926878, guid: 9694c8556a56c0e4a9417ccf0d4e9e62,
+    type: 2}
+  leftHandPrefab: {fileID: 168002, guid: b803ea689b41948458934ad06785a313, type: 2}
+  leftHandCarryLocation: waist
+  leftHandCarryTransform: {fileID: 4330707660926878, guid: 4f05226f11a41e347beded2ab5ff4c19,
+    type: 2}
+  leftHandWieldTransform: {fileID: 4330707660926878, guid: 7ed5414adb7f2f841ab9be6226cb5441,
+    type: 2}
