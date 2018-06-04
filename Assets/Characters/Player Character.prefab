@@ -86,6 +86,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1048593661242186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4076340270397266}
+  - component: {fileID: 119343189865561096}
+  m_Layer: 9
+  m_Name: Circle Selector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1055669626252552
 GameObject:
   m_ObjectHideFlags: 1
@@ -741,7 +757,7 @@ GameObject:
   - component: {fileID: 4557190029506226}
   - component: {fileID: 137667127992415504}
   m_Layer: 9
-  m_Name: Character_Mystic_01
+  m_Name: Primary Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2628,6 +2644,19 @@ Transform:
   m_Father: {fileID: 4730990633563750}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4076340270397266
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1048593661242186}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4730990633563750}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4080969457550526
 Transform:
   m_ObjectHideFlags: 1
@@ -3977,6 +4006,7 @@ Transform:
   - {fileID: 4252848774738682}
   - {fileID: 4073662352306184}
   - {fileID: 4008383530755358}
+  - {fileID: 4076340270397266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4739,6 +4769,7 @@ MonoBehaviour:
   isInCombat: 0
   hasWeaponsOut: 0
   timeSinceLastAttack: 0
+  effectiveAttackRange: 3
   isPlayerCharacter: 0
   isHostileCharacter: 0
 --- !u!114 &114574118538795988
@@ -4752,6 +4783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669dc96b471501a4b9cc20ea2263d495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playableCharacter: {fileID: 11400000, guid: 93f0b90cb83ec724e92ca782ca91f5f6, type: 2}
 --- !u!114 &114587442981496558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4787,6 +4819,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementDestination: {fileID: 0}
   isMoving: 0
+--- !u!119 &119343189865561096
+Projector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1048593661242186}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.01
+  m_FarClipPlane: 5
+  m_FieldOfView: 10
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 0.8
+  m_Material: {fileID: 2100000, guid: acba926cf9eb5174d83aa0076f8c5217, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 4294967039
 --- !u!136 &136042493201165154
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -5578,7 +5628,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
+  - {fileID: 2100000, guid: dbd7f52bb3e6a894281a6648c15ce510, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5602,7 +5652,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300068, guid: b69174d668ba02d44b14a084b217670a, type: 3}
+  m_Mesh: {fileID: 4300048, guid: b69174d668ba02d44b14a084b217670a, type: 3}
   m_Bones:
   - {fileID: 4008383530755358}
   - {fileID: 4080969457550526}

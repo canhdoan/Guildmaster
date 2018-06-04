@@ -126,6 +126,8 @@ namespace Guildmaster.Characters
                             // If the Character's movement target was defined as the current target, wipe it (the character doesn't need to move towards it anymore)
                             if (character.movementDestination == target.transform)
                             { character.movementDestination = null; }
+                            // TODO: delete 2 previous lines?
+                            character.movementDestination = null;
 
                             // If the last attack was made enough time ago, attack the target
                             if (timeSinceLastAttack >= weapon.attackSpeed)

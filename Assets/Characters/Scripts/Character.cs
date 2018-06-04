@@ -47,7 +47,6 @@ namespace Guildmaster.Characters
                 Move(Vector3.zero);
                 navMeshAgent.velocity = Vector3.zero;
                 isMoving = false;
-                movementDestination = null;
             }
         }
         #endregion

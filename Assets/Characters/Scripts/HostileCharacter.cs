@@ -21,7 +21,6 @@ namespace Guildmaster.Characters
         public GameObject target4 = null;
         public float target4Threat = 0f;
         public float timeSinceTargetChange = 0f;
-        public float timeSinceLastThreatReduction = 0f;
 
         // Components
         Character character;
@@ -43,7 +42,6 @@ namespace Guildmaster.Characters
         void Update()
         {
             timeSinceTargetChange += Time.deltaTime;
-            timeSinceLastThreatReduction += Time.deltaTime;
         }
 
         public void Initialize()
@@ -70,10 +68,6 @@ namespace Guildmaster.Characters
                     // If the last target change was more than a second ago, check the aggro table to choose a target
                     if (timeSinceTargetChange >= 1f)
                     { ChooseTargetByThreat(); }
-
-                    // If the last threat reduction was more than 5 seconds ago, divide all threat values by 2 (to make sure the racent actions have more impacts than the previous ones)
-                    if (timeSinceLastThreatReduction >= 5f)
-                    { ReduceThreatValue(); }
                 }
 
                 yield return new WaitForSeconds(0.2f);
@@ -161,9 +155,6 @@ namespace Guildmaster.Characters
         {
             int targetID = 1;
 
-            // Reset the threat reduction counter
-            timeSinceLastThreatReduction = 0f;
-
             // Find all potential targets (objects with the "PlayerFaction" tag)
             GameObject[] potentialTargets = GameObject.FindGameObjectsWithTag("PlayerFaction");
 
@@ -229,17 +220,6 @@ namespace Guildmaster.Characters
             else if (source == target4)
             { target4Threat += value; }
         }
-
-        // Function dividing all threat values by 2 (to make sure the racent actions have more impacts than the previous ones)
-        void ReduceThreatValue()
-        {
-            target1Threat = target1Threat / 2;
-            target2Threat = target2Threat / 2;
-            target3Threat = target3Threat / 2;
-            target4Threat = target4Threat / 2;
-
-            timeSinceLastThreatReduction = 0f;
-        }
         #endregion
 
         #region Appearance
@@ -249,7 +229,7 @@ namespace Guildmaster.Characters
             if (enemy.primaryMesh != null)
             {
                 // Identify the Body Mesh Renderer
-                GameObject primaryMeshObject = gameObject.transform.Find("PrimaryMesh").gameObject;
+                GameObject primaryMeshObject = gameObject.transform.Find("Primary Mesh").gameObject;
                 SkinnedMeshRenderer primaryMeshRenderer = primaryMeshObject.GetComponent<SkinnedMeshRenderer>();
 
                 // Apply the mesh
@@ -260,24 +240,24 @@ namespace Guildmaster.Characters
                 materials[0] = enemy.primaryMaterial;
             }
             else
-            { gameObject.transform.Find("PrimaryMesh").gameObject.SetActive(false); }
+            { gameObject.transform.Find("Primary Mesh").gameObject.SetActive(false); }
 
             // Apply the Secondary Mesh
             if (enemy.secondaryMesh != null)
             {
                 // Identify the Body Mesh Renderer
-                GameObject secondaryMeshObject = gameObject.transform.Find("SecondaryMesh").gameObject;
+                GameObject secondaryMeshObject = gameObject.transform.Find("Secondary Mesh").gameObject;
                 SkinnedMeshRenderer secondaryMeshRenderer = secondaryMeshObject.GetComponent<SkinnedMeshRenderer>();
 
                 // Apply the mesh
                 secondaryMeshRenderer.sharedMesh = enemy.secondaryMesh;
 
-                // Apply the material(s)
+                // Apply the material
                 Material[] materials = secondaryMeshObject.GetComponent<Renderer>().materials;
                 materials[0] = enemy.secondaryMaterial;
             }
             else
-            { gameObject.transform.Find("SecondaryMesh").gameObject.SetActive(false); }
+            { gameObject.transform.Find("Secondary Mesh").gameObject.SetActive(false); }
 
             // Update the character's scale
             transform.localScale = new Vector3(enemy.scale, enemy.scale, enemy.scale);

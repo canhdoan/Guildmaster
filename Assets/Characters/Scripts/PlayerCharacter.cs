@@ -5,7 +5,12 @@ namespace Guildmaster.Characters
     public class PlayerCharacter : MonoBehaviour
     {
         #region Variables & Components
+        [Header("Identity")]
+        public PlayableCharacter playableCharacter;
+
+        // Elements
         GameObject movementTarget;
+        Projector circleSelector;
 
         // Components
         Character character;
@@ -18,6 +23,9 @@ namespace Guildmaster.Characters
             // Identify components
             character = GetComponent<Character>();
             combatCharacter = GetComponent<CombatCharacter>();
+
+            // Identify the Elements
+            circleSelector = transform.Find("Circle Selector").gameObject.GetComponent<Projector>();
         }
 
         public void Initialize()
@@ -26,6 +34,13 @@ namespace Guildmaster.Characters
 
             // CombatCharacter.cs
             combatCharacter.effectiveAttackRange = combatCharacter.weapon.range;
+
+            // Set the Circle Selector colour
+            //print(circleSelector.material.color + " - " + playableCharacter.color);
+            circleSelector.material = playableCharacter.circleSelectorMaterial;
+
+            // Update the character's appearance
+            UpdateAppearance();
         }
         #endregion
 
@@ -45,6 +60,27 @@ namespace Guildmaster.Characters
             }
             else
             { print("can't move there"); }
+        }
+        #endregion
+
+        #region Appearance
+        public void UpdateAppearance()
+        {
+            // Identify the Mesh Renderer
+            SkinnedMeshRenderer meshRenderer = gameObject.transform.Find("Primary Mesh").gameObject.GetComponent<SkinnedMeshRenderer>();
+
+            // Apply the mesh
+            meshRenderer.sharedMesh = playableCharacter.mesh;
+
+            // Apply the material
+            meshRenderer.material = playableCharacter.material;
+        }
+        #endregion
+
+        #region Various
+        public void ToggleCircleSelector(bool enabled)
+        {
+            circleSelector.enabled = enabled;
         }
         #endregion
     }

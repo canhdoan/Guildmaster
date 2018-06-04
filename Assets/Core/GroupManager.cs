@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Guildmaster.Characters;
 
 namespace Guildmaster.Core
 {
@@ -42,6 +43,33 @@ namespace Guildmaster.Core
                 if (!controlledCharacters.Contains(characterToControl))
                 { controlledCharacters.Add(characterToControl); }
             }
+
+            // Toggle the Circle Selectors on controlled characters
+            ToggleCircleSelectors();
+        }
+
+        // Function enabling or disabling the Circle Selectors of characters, depending if they're controlled or not
+        public void ToggleCircleSelectors()
+        {
+            if (controlledCharacters.Contains(character1))
+            { character1.GetComponent<PlayerCharacter>().ToggleCircleSelector(true); }
+            else
+            { character1.GetComponent<PlayerCharacter>().ToggleCircleSelector(false); }
+
+            if (controlledCharacters.Contains(character2))
+            { character2.GetComponent<PlayerCharacter>().ToggleCircleSelector(true); }
+            else
+            { character2.GetComponent<PlayerCharacter>().ToggleCircleSelector(false); }
+
+            if (controlledCharacters.Contains(character3))
+            { character3.GetComponent<PlayerCharacter>().ToggleCircleSelector(true); }
+            else
+            { character3.GetComponent<PlayerCharacter>().ToggleCircleSelector(false); }
+
+            if (controlledCharacters.Contains(character4))
+            { character4.GetComponent<PlayerCharacter>().ToggleCircleSelector(true); }
+            else
+            { character4.GetComponent<PlayerCharacter>().ToggleCircleSelector(false); }
         }
     }
 }

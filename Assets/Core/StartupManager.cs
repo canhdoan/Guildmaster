@@ -17,6 +17,8 @@ namespace Guildmaster.Core
             PlayerCharacter[] playerCharacters = FindObjectsOfType<PlayerCharacter>();
             foreach (PlayerCharacter playerCharacter in playerCharacters)
             { playerCharacter.Initialize(); }
+
+            GetComponent<GroupManager>().ToggleCircleSelectors();
         }
     }
 }
