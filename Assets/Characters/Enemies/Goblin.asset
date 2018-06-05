@@ -21,7 +21,7 @@ MonoBehaviour:
   primaryMaterial: {fileID: 2100000, guid: 42b64fdb315e3054ea757d8d1c4bcfa7, type: 2}
   secondaryMesh: {fileID: 0}
   secondaryMaterial: {fileID: 0}
-  scale: 1
+  scale: 1.2
   hitboxCenter: 1
   hitboxRadius: 0.5
   hitboxHeight: 1.85
