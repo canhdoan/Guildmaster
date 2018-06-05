@@ -38,18 +38,22 @@ namespace Guildmaster.Characters
 
         // Components
         Animator animator;
+        CapsuleCollider capsuleCollider;
         Character character;
         HostileCharacter hostileCharacter;
         NavMeshAgent navMeshAgent;
+        PlayerCharacter playerCharacter;
         #endregion
 
         #region Common Methods
         void Awake()
         {
             animator = GetComponent<Animator>();
+            capsuleCollider = GetComponent<CapsuleCollider>();
             character = GetComponent<Character>();
             hostileCharacter = GetComponent<HostileCharacter>();
             navMeshAgent = GetComponent<NavMeshAgent>();
+            playerCharacter = GetComponent<PlayerCharacter>();
         }
 
         void Start()
@@ -179,7 +183,11 @@ namespace Guildmaster.Characters
         public void Hit()
         {
             // Damage the target
-            target.GetComponent<CombatCharacter>().ReceiveDamage(gameObject, CalculateDPS());
+            float damage = target.GetComponent<CombatCharacter>().ReceiveDamage(gameObject, CalculateDPS());
+
+            // Increase the Player Character damage done stat
+            if (isPlayerCharacter)
+            { playerCharacter.damageDone += damage; }
         }
 
         // Function calculating the character's effective DPS (without random effects such as critical)
@@ -213,11 +221,40 @@ namespace Guildmaster.Characters
             if (!target)
             { target = damageDealer; }
 
-            // If the character is an enemy, alter the threat table
-            if (isHostileCharacter)
-            { hostileCharacter.IncreaseThreat(damageDealer, amount); }
+            // If health is equal to 0, call the Death function
+            if (currentHealth <= 0)
+            { Death(); }
+            else
+            {
+                if (isHostileCharacter)
+                {
+                    // Alter the threat table
+                    hostileCharacter.IncreaseThreat(damageDealer, amount);
+                }
+                else if (isPlayerCharacter)
+                {
+                    // Increase the Player Character damage received stat
+                    playerCharacter.damageReceived += amount;
+                }
+            }
 
-            return 1f;
+            return amount;
+        }
+
+        public void Death()
+        {
+            // Toggle the Is Dead boolean
+            isDead = true;
+
+            // Toggle the death animation
+            animator.SetTrigger("Death");
+
+            // Disable the capsule collider
+            capsuleCollider.enabled = false;
+
+            // Empty the fields that could cause strange behaviour from the body
+            target = null;
+            character.movementDestination = null;
         }
         #endregion
 

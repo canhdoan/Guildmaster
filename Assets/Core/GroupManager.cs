@@ -13,12 +13,13 @@ namespace Guildmaster.Core
         public GameObject character3;
         public GameObject character4;
 
+        [Header("Controlled characters")]
         public List<GameObject> controlledCharacters = new List<GameObject>();
         #endregion
 
         void Start()
         {
-            controlledCharacters.Add(character1);
+            ControlCharacter(character1, true);
         }
 
         public void ControlCharacter(GameObject character, bool emptyList)
@@ -45,6 +46,13 @@ namespace Guildmaster.Core
             }
 
             // Toggle the Circle Selectors on controlled characters
+            ToggleCircleSelectors();
+        }
+
+        // Function emptying the controlled characters list
+        public void UnControlCharacters()
+        {
+            controlledCharacters.Clear();
             ToggleCircleSelectors();
         }
 

@@ -112,6 +112,11 @@ namespace Guildmaster.Core
                         { groupManager.ControlCharacter(raycastHit.collider.gameObject, true); }
                     }
                 }
+                // The player clicks on an "empty" area: wipes the controlled characters list
+                else if (layerHit == walkableLayerNumber)
+                {
+                    groupManager.UnControlCharacters();
+                }
             }
         }
 
@@ -122,14 +127,18 @@ namespace Guildmaster.Core
             {
                 if (layerHit == walkableLayerNumber)
                 {
-                    // Get each currently controlled character
-                    foreach (GameObject characterObject in groupManager.controlledCharacters)
+                    // If characters are controlled
+                    if (groupManager.controlledCharacters.Count > 0)
                     {
-                        // Get the character's Player Character component
-                        PlayerCharacter playerCharacter = characterObject.GetComponent<PlayerCharacter>();
+                        // Get each currently controlled character
+                        foreach (GameObject characterObject in groupManager.controlledCharacters)
+                        {
+                            // Get the character's Player Character component
+                            PlayerCharacter playerCharacter = characterObject.GetComponent<PlayerCharacter>();
 
-                        // Make the characters move to the clicked destination
-                        playerCharacter.MoveToDestination(raycastHit.point);
+                            // Make the characters move to the clicked destination
+                            playerCharacter.MoveToDestination(raycastHit.point);
+                        }
                     }
                 }
                 else if (layerHit == hostileCharacterLayerNumber)
@@ -140,8 +149,9 @@ namespace Guildmaster.Core
                         // Get the character's Combat Character component
                         CombatCharacter combatCharacter = characterObject.GetComponent<CombatCharacter>();
 
-                        // Make the characters target the clicked enemy
-                        combatCharacter.AssignTarget(raycastHit.collider.gameObject);
+                        // If the enemy isn't dead, make it the characters target
+                        if (!combatCharacter.isDead)
+                        { combatCharacter.AssignTarget(raycastHit.collider.gameObject); }
                     }
                 }
             }

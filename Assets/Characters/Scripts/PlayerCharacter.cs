@@ -8,6 +8,10 @@ namespace Guildmaster.Characters
         [Header("Identity")]
         public PlayableCharacter playableCharacter;
 
+        [Header("Stats")]
+        public float damageDone = 0f;
+        public float damageReceived = 0f;
+
         // Elements
         GameObject movementTarget;
         Projector circleSelector;
@@ -31,6 +35,10 @@ namespace Guildmaster.Characters
         public void Initialize()
         {
             movementTarget = new GameObject("Movement Target");
+
+            // PlayerCharacter.cs
+            damageDone = 0f;
+            damageReceived = 0f;
 
             // CombatCharacter.cs
             combatCharacter.effectiveAttackRange = combatCharacter.weapon.range;
