@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Guildmaster.Characters;
+using UnityEngine.AI;
 
 namespace Guildmaster.Core
 {
@@ -13,6 +14,8 @@ namespace Guildmaster.Core
         [Header("Game State")]
         public bool gamePaused = false;
         public bool isCtrlDown = false;
+
+        public NavMeshSurface navMeshSurface;
 
         // Layers
         const int walkableLayerNumber = 8;
@@ -40,6 +43,12 @@ namespace Guildmaster.Core
             cameraRaycaster = Camera.main.GetComponent<CameraRaycaster>();
             cameraRaycaster.notifyMouseClickObservers += OnMouseLeftClick;
             cameraRaycaster.notifyMouseRightClickObservers += OnMouseRightClick;
+        }
+
+        void Start()
+        {
+            // Generate NavMesh at runtime using NavMeshSurface component
+            //navMeshSurface.BuildNavMesh();
         }
 
         void Update()

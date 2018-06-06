@@ -8,9 +8,6 @@ namespace Guildmaster.Characters
         #region Variables & Components
         public Enemy enemy;
 
-        [Header("State")]
-        public bool isAlerted = false;
-
         [Header("Aggro")]
         public GameObject target1 = null;
         public float target1Threat = 0f;
@@ -21,6 +18,10 @@ namespace Guildmaster.Characters
         public GameObject target4 = null;
         public float target4Threat = 0f;
         public float timeSinceTargetChange = 0f;
+
+        // Abilities
+        [Header("Abilities")]
+        public float timeUntilAbilityUse = 0f;
 
         // Components
         Character character;
@@ -42,12 +43,18 @@ namespace Guildmaster.Characters
         void Update()
         {
             timeSinceTargetChange += Time.deltaTime;
+
+            if (combatCharacter.isInCombat)
+            { timeUntilAbilityUse -= Time.deltaTime; }
         }
 
         public void Initialize()
         {
             // CombatCharacter.cs
             combatCharacter.effectiveAttackRange = enemy.attackRange;
+
+            // Set the Ability use time
+            timeUntilAbilityUse = Random.Range(enemy.abilityMinUseTime, enemy.abilityMaxUseTime);
 
             // Starting the Behaviour routine
             StartCoroutine("Behaviour");
@@ -61,13 +68,19 @@ namespace Guildmaster.Characters
         {
             for (; ; )
             {
-                if (!isAlerted)
+                if (!combatCharacter.isInCombat)
                 { CheckForPotentialTargets(); }
                 else
                 {
                     // If the last target change was more than a second ago, check the aggro table to choose a target
                     if (timeSinceTargetChange >= 1f)
                     { ChooseTargetByThreat(); }
+
+                    // If the time has come to use an ability, do it
+                    if (timeUntilAbilityUse <= 0)
+                    {
+                        print("use ability");
+                    }
                 }
 
                 yield return new WaitForSeconds(0.2f);
@@ -138,14 +151,12 @@ namespace Guildmaster.Characters
         // Function called when the character is alerted
         void Alert(GameObject target)
         {
-            // Set the Is Alerted toggle
-            isAlerted = true;
-
             // Build the Aggro Table
             BuildAggroTable(target);
 
-            // Set the detected character as the combat target
+            // Set the detected character as the combat target, and start combat
             combatCharacter.target = target;
+            combatCharacter.isInCombat = true;
         }
         #endregion
 

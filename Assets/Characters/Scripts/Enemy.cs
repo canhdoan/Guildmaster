@@ -16,6 +16,10 @@ namespace Guildmaster.Characters
         public WeaponSkin weaponSkin;
         public AnimatorOverrideController animator;
 
+        [Header("Abilities")]
+        public float abilityMinUseTime = 10f;
+        public float abilityMaxUseTime = 20f;
+
         [Header("Appearance")]
         public Mesh primaryMesh;
         public Material primaryMaterial;

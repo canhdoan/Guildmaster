@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3316746}
   - component: {fileID: 2307958}
   - component: {fileID: 65153033152256450}
+  - component: {fileID: 208819105566344830}
   m_Layer: 0
   m_Name: SM_Env_Wall_Alcove_Small_01
   m_TagString: Untagged
@@ -24,7 +25,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118452}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: -5, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -44,6 +45,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 42b64fdb315e3054ea757d8d1c4bcfa7, type: 2}
   m_StaticBatchInfo:
@@ -95,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.156758, y: 5.184411, z: 1.8893318}
   m_Center: {x: -2.476179, y: 2.550056, z: -0.55018806}
+--- !u!208 &208819105566344830
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118452}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.578, y: 2.592, z: 0.94500005}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -2.476, y: 2.5500002, z: -0.55}
+  m_TimeToStationary: 0.5

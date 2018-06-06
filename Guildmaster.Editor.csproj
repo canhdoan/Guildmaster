@@ -356,6 +356,14 @@
       <Project>{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}</Project>
       <Name>Unity.PackageManagerUI.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{9A2A1A50-E65B-74A8-AF77-B45DF78A7632}</Project>
+      <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{39BB8A60-453F-EEAD-9859-5F71DB02F6D6}</Project>
+      <Name>NavMeshComponents</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\CameraManagerEditor.cs" />
@@ -400,6 +408,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Core\CircleSelector\AdditiveTint.shader" />
+    <None Include="Assets\NavMeshComponents\Editor\NavMeshComponentsEditor.asmdef" />
+    <None Include="Assets\NavMeshComponents\Scripts\NavMeshComponents.asmdef" />
     <None Include="Assets\Ressources\FogOfWar\Resources\ClearFogShader.shader" />
     <None Include="Assets\Ressources\FogOfWar\Resources\FogOfWarBlurShader.shader" />
     <None Include="Assets\Ressources\FogOfWar\Resources\FogOfWarShader.shader" />

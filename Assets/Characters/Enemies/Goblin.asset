@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   detectionRange: 10
-  dps: 10
+  dps: 2
   attackSpeed: 2
   attackRange: 4
   weaponSkin: {fileID: 11400000, guid: 3c7c026afd18e7345b05030c1b2ddd80, type: 2}
   animator: {fileID: 22100000, guid: f45d7681e59a44b49a404443b0ff74cf, type: 2}
+  abilityMinUseTime: 10
+  abilityMaxUseTime: 20
   primaryMesh: {fileID: 4300066, guid: b69174d668ba02d44b14a084b217670a, type: 3}
   primaryMaterial: {fileID: 2100000, guid: 42b64fdb315e3054ea757d8d1c4bcfa7, type: 2}
   secondaryMesh: {fileID: 0}
